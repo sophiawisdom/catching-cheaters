@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get '/product/show' => 'product#show'
   get '/artist/index' => 'artist#index'
   get '/artist/:id' => 'artist#show'
+  get '/' => 'artist#index'
 # begin  resources :product do
 
 # end

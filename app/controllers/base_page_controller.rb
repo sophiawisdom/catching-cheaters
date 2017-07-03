@@ -1,0 +1,2 @@
+class BasePageController < ApplicationController
+end

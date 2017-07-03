@@ -27,6 +27,7 @@ class ArtistController < ApplicationController
   end
   def show
     artist_id = params['id']
+    puts "Got to line 30"
     @artist_name = Artist.find(artist_id.to_i).name
     data = load_csv
     artist_matches = []
