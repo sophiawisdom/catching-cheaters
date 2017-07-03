@@ -1,5 +1,5 @@
 require 'csv'
-require 'pry'
+# test
 class ArtistController < ApplicationController
   # BEFORE_ACTION- LOAD CSV
   def reverse(row)
