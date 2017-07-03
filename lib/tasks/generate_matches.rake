@@ -1,4 +1,11 @@
 namespace :generate do
+  def database_exists?
+    ActiveRecord::Base.connection
+    rescue ActiveRecord::NoDatabaseError
+      false
+    else
+    true
+  end
   task :matches => :environment do
     images = Image.all
     new_images = []

@@ -29,6 +29,7 @@ class ArtistController < ApplicationController
     artist_id = params['id']
     puts "Got to line 30"
     @artist_name = Artist.find(artist_id.to_i).name
+    puts "Got past it"
     data = load_csv
     artist_matches = []
     data.each do |row|

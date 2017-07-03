@@ -1,33 +1,32 @@
 require 'csv'
 namespace :import do
-  task :products => :environment do
-    file_name = ENV["file_name"]
+  task :products, [:file_name] => :environment do |task,args|
+    file_name = args.file_name
+    print("File name is #{file_name}\n")
     n = 0
     csv_text = File.read(file_name)
     csv = CSV.parse(csv_text, headers:true,col_sep:"+")
     csv.each do |product|
+      if (n%1000) == 0
+        print("At number #{n}\n")
+      end
+      n+= 1
       Product.create(product.to_hash)
     end
   end
-  task :images => :environment do
-    file_name = ENV['file_name']
+  task :images, [:file_name] => :environment do |task,args|
+    puts "Here!"
+    file_name = args.file_name
+    puts file_name
     csv_text = File.read(file_name)
     csv = CSV.parse(csv_text, headers:true,col_sep:"+")
     n = 0
     csv.each do |row|
-      k = Image.new(row.to_hash)
-      k.save!
+      Image.create(row.to_hash)
       n += 1
-    end
-  end
-  task :matches => :environment do
-    file_name = ENV['file_name']
-    csv_text = File.read(file_name)
-    csv = CSV.parse(csv_text, headers:true,col_sep:"+")
-    n = 0
-    csv.each do |row|
-      match = ImageMatch.new(row.to_hash)
-      match.save!
+      if (n%1500) == 0
+        print("At number #{n}\n")
+      end
     end
   end
   task :artists => :environment do
