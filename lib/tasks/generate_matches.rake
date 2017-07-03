@@ -1,4 +1,3 @@
-require 'pp'
 namespace :generate do
   task :matches => :environment do
     images = Image.all
