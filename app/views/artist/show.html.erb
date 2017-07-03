@@ -1,0 +1,12 @@
+<table style="width:100%">
+  <tr>
+    <th> <%= @artist_name %>'s product </th>
+    <th> Other identical product </th>
+  </tr>
+  <%- @artist_matches.each do |match| -%>
+  <tr>
+    <td> <%= link_to (match['name_1'] + " - $#{'%.02f' % match['price_1']}"), match['prod_url_1'] %> <br> <%= image_tag(match['image_url_1']) %></td>
+    <td> <%= link_to (match['name_2'] + " - $#{'%.02f' % match['price_2']}"), match['prod_url_2'] %> <br> <%= image_tag(match['image_url_2']) %></td>
+  </tr>
+  <%- end -%>
+</table>
