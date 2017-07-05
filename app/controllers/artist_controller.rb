@@ -23,6 +23,11 @@ class ArtistController < ApplicationController
   end
   def index
     @artist = Artist.all
+    artist_to_id = {}
+    Artist.all.each do |artist|
+      artist_to_id[artist.name] = artist.id.to_s
+    end
+    @artist_to_id = artist_to_id
     render :index
   end
   def show

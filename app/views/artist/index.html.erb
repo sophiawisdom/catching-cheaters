@@ -1,6 +1,6 @@
 <h2> All artists: </h2>
 <ul>
-<%- @artist.each do |person| -%>
-<li><%= link_to "#{person.name.capitalize}", "artist/#{person.id}"%> </li>
+<%- ["liu","guamwork","fine3d","bluebird","mostusk","faint3d"].each do |person| -%>
+<li><%= link_to "#{person.capitalize}", "artist/#{@artist_to_id[person]}"%> </li>
 <%- end -%>
 </ul>
