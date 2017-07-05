@@ -11,7 +11,7 @@ tr:hover td {background:#ffa}
   </tr>
   <%- @artist_matches.each do |match| -%>
   <tr>
-    <td> <%= link_to match['name_1'], match['prod_url_1'], target: '_blank' %> <br> </td>
+    <td> <%= link_to match['name_1'], match['prod_url_1'], target: '_blank' %> </td>
     <td> <%= link_to (match['name_2']), match['prod_url_2'] %> </td>
     <td> <%= link_to ("#{@id_to_artist[match['artist_id_2']]}"), ("/artist/#{match['artist_id_2']}")%></td>
     <td> <%= "$#{'%.02f' % match['price_1']}" %> </td>
