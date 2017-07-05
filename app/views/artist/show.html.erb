@@ -1,13 +1,20 @@
 <table style="width:100%">
   <tr>
     <th> <%= @artist_name %>'s product </th>
+    <th> Price of <%= @artist_name %>'s product </th>
+    <th></th>
     <th> Other identical product </th>
+    <th> Price of identical product </th>
+    <th> Other artist </th>
   </tr>
   <%- @artist_matches.each do |match| -%>
   <tr>
-    <td> <%= link_to (match['name_1'] + " - $#{'%.02f' % match['price_1']}"), match['prod_url_1'] %> <br> </td>
-    <td> <%= link_to (match['name_2'] + " - $#{'%.02f' % match['price_2']}"), match['prod_url_2'] %>
-      <%= link_to (", By #{@id_to_artist[match['artist_id_2']]}"), ("/artist/#{match['artist_id_2']}")%><br> </td>
+    <td> <%= link_to match['name_1'], match['prod_url_1'] %> <br> </td>
+    <td> <%= "$#{'%.02f' % match['price_1']}" %> </td>
+    <td></td>
+    <td> <%= link_to (match['name_2']), match['prod_url_2'] %> </td>
+    <td> <%= " - $#{'%.02f' % match['price_2']}" %> </td>
+    <td> <%= link_to ("#{@id_to_artist[match['artist_id_2']]}"), ("/artist/#{match['artist_id_2']}")%></td>
   </tr>
   <%- end -%>
 </table>
