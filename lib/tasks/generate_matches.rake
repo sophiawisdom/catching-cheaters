@@ -1,11 +1,5 @@
+require 'pry'
 namespace :generate do
-  def database_exists?
-    ActiveRecord::Base.connection
-    rescue ActiveRecord::NoDatabaseError
-      false
-    else
-    true
-  end
   task :matches => :environment do
     images = Image.all
     new_images = []
@@ -34,16 +28,21 @@ namespace :generate do
         artists.append(product.artist_id)
         commit_group.append(image)
       end
-      return commit_group if artists.length > 1 # otherwise
+      return commit_group if artists.length > 1 # otherwise nil
     end
     n = 0
     last_image = images[-1]
+    last_hash = last_image['image_hash']
     images.each do |image|
       curr_hash = image['image_hash']
+      first = curr_hash.to_s[-7..-1]
+      print("#{first}\n")
       if curr_hash == last_hash
+        puts "Written to curr_group"
         curr_group.append image
         curr_group.append last_image
-      elsif curr_group.length > 1
+      elsif curr_group.length >= 1
+        puts "Curr_group written with length #{curr_group.length}"
         res = commit_group curr_group
         commit_group_calls += 1
         if res != nil
@@ -62,7 +61,7 @@ namespace :generate do
       product_1 = Product.find(group[0]['product_id'])
       product_2 = Product.find(group[1]['product_id'])
 # We want a name + price, <a>'d to a product url, with an <img> below of the images, queried by artist
-      prices = [product_1['list_price'],product_2['list_price']] # THIS WILL NOT WORK, ALL SET TO 0
+      prices = [product_1['price'],product_2['price']]
       names = [product_1['name'],product_2['name']]
       prod_urls = [product_1['url'],product_2['url']]
       artists = [product_1['artist_id'],product_2['artist_id']]

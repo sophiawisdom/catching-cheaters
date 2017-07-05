@@ -1,4 +1,5 @@
 require 'csv'
+require 'pp'
 namespace :import do
   task :products, [:file_name] => :environment do |task,args|
     file_name = args.file_name
@@ -11,18 +12,21 @@ namespace :import do
         print("At number #{n}\n")
       end
       n+= 1
-      Product.create(product.to_hash)
+      prod = Product.new(product.to_hash)
+      prod.save!
     end
   end
   task :images, [:file_name] => :environment do |task,args|
     puts "Here!"
-    file_name = args.file_name
-    puts file_name
+    print("Args are #{args}")
+    file_name = args[:file_name]
+    print("File name is #{file_name}\n")
     csv_text = File.read(file_name)
     csv = CSV.parse(csv_text, headers:true,col_sep:"+")
     n = 0
     csv.each do |row|
-      Image.create(row.to_hash)
+      img = Image.new(row.to_hash)
+      img.save!
       n += 1
       if (n%1500) == 0
         print("At number #{n}\n")

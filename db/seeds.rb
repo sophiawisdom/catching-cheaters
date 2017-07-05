@@ -12,8 +12,8 @@ artists = ['liu', 'guamwork', 'richard3015', 'kanhtart', 'pupuhol', 'lotusmodel'
 artists.each do |artist|
   Artist.create(name:artist)
 end
-CSV.foreach('product_export.csv',col_sep:'+',headers:true) do  |line|
-  Product.create(line.to_hash)
-end
-CSV.foreach('image_export.csv',col_sep:'+',headers:true) do |line|
-  
+print("Creating products\n")
+Rake::Task['import:products'].invoke("product_export.csv")
+print("Creating Images\n")
+Rake::Task['import:images'].invoke("image_export.csv")
+Rake::Task['generate:matches'].invoke
