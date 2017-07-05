@@ -68,7 +68,8 @@ namespace :generate do
       images = [group[0]['url'],group[1]['url']]
       csv_format.append [prices,names,prod_urls,artists,images]
     end
-    file = File.open("/Users/williamwisdom/myapp/ruby_matches.csv",'w')
+    # test
+    file = File.open("ruby_matches.csv",'w')
     file.write (['price_1','price_2','name_1','name_2','prod_url_1','prod_url_2','artist_id_1','artist_id_2',\
       'image_url_1','image_url_2'].join("+") + "\n")
     csv_format.each do |row|
