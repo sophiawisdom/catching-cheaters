@@ -13,7 +13,7 @@ class ArtistController < ApplicationController
     return row_2
   end
   def load_csv
-    csv_text = File.read("/users/williamwisdom/myapp/ruby_matches.csv")
+    csv_text = File.read("ruby_matches.csv")
     k = []
     CSV.parse(csv_text,headers:true,col_sep:"+").each do |row|
       data = row.to_hash
