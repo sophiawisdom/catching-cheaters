@@ -1,7 +1,13 @@
 <title> 3d Model stealing </title>
-<h2> Artists known to have stolen </h2>
+<h2> Artists with suspected models </h2>
 <ul>
 <%- ["liu","guamwork","fine3d","bluebird","mostusk","faint3d"].each do |person| -%>
-<li><%= link_to "#{person.capitalize}", "artist/#{@artist_to_id[person]}"%> </li>
+<%- matches = @match_count[@artist_to_id[person]] -%>
+<%- names = []
+matches[1].each do |match|
+  names.append(@id_to_artist[match])
+end -%>
+<li><%= link_to "#{person.capitalize}", "artist/#{@artist_to_id[person]}" %>
+  <%="#{@model_count[person]} total models. #{matches[0]} shared with" %> <%= names.join(", ") %> </li>
 <%- end -%>
 </ul>

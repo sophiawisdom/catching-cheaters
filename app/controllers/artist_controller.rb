@@ -1,4 +1,5 @@
 require 'csv'
+require 'pry'
 #       <%= link_to ("/artist/#{match['artist_id_2']}"), (" - " + @id_to_artist[match['artist_id_2']])%><br> </td>
 class ArtistController < ApplicationController
   # BEFORE_ACTION- LOAD CSV
@@ -12,6 +13,7 @@ class ArtistController < ApplicationController
     row_2['image_url_1'] = row['image_url_2']
     return row_2
   end
+
   def load_csv
     csv_text = File.read("ruby_matches.csv")
     k = []
@@ -21,15 +23,48 @@ class ArtistController < ApplicationController
     end
     return k
   end
+
   def index
     @artist = Artist.all
     artist_to_id = {}
+    file = File.open("artist_matches.csv")
+    artist_matches = eval file.read
+    file.close
     Artist.all.each do |artist|
       artist_to_id[artist.name] = artist.id.to_s
     end
     @artist_to_id = artist_to_id
+    @model_count = {}
+    Artist.all.each do |artist|
+      where_res = Product.where(artist_id: artist.id)
+      @model_count[artist.name] = where_res.count
+    end
+    @match_count = {}
+    Artist.all.each do |artist|
+      @match_count[artist.id.to_s] = [0,[]]
+    end
+    matches = load_csv
+    matches.each do |match|
+      @match_count[match['artist_id_1']][0] += 1
+      @match_count[match['artist_id_2']][0] += 1
+      unless @match_count[match['artist_id_1']][1].include? match['artist_id_2']
+        @match_count[match['artist_id_1']][1].append(match['artist_id_2'])
+      end
+      unless @match_count[match['artist_id_2']][1].include? match['artist_id_1']
+        @match_count[match['artist_id_2']][1].append(match['artist_id_1'])
+      end
+    end
+    Artist.all.each do |artist|
+      @match_count[artist.name] = artist_matches.count
+    end
+    id_to_artist = {}
+    Artist.all.each do |artist|
+      id_to_artist[artist.id.to_s] = artist.name.capitalize
+    end
+    @id_to_artist = id_to_artist
     render :index
   end
+
   def show
     artist_id = params['id']
     @artist_name = Artist.find(artist_id.to_i).name

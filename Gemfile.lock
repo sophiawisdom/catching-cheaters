@@ -90,6 +90,7 @@ GEM
       mini_portile2 (~> 2.2.0)
     pg (0.21.0)
     pg (0.21.0-x86-mingw32)
+    phashion (1.2.0)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -175,6 +176,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   jbuilder (~> 2.5)
   pg
+  phashion
   pry
   puma (~> 3.7)
   rails (~> 5.1.1)
