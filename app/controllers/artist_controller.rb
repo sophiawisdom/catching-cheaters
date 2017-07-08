@@ -1,6 +1,5 @@
 require 'csv'
 require 'pry'
-#       <%= link_to ("/artist/#{match['artist_id_2']}"), (" - " + @id_to_artist[match['artist_id_2']])%><br> </td>
 class ArtistController < ApplicationController
   # BEFORE_ACTION- LOAD CSV
   def reverse(row)
